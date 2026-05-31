@@ -3,7 +3,7 @@ import { Node } from "./node";
 export class Tree {
   root: Node | null;
 
-  constructor(public arr: number[]) {
+  constructor(private arr: number[]) {
     this.root = this.#buildTree(arr);
   }
 
