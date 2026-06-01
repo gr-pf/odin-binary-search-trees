@@ -46,4 +46,32 @@ export class Tree {
     }
     return false;
   }
+
+  insert(value: number) {
+    if (!this.root) {
+      this.root = new Node(value);
+      return;
+    }
+
+    let prev: Node | null;
+    let current: Node | null = this.root;
+
+    while (current) {
+      if (current.data === value) {
+        return;
+      } else if (current.data > value) {
+        prev = current;
+        current = current.left;
+        if (!current) {
+          prev.left = new Node(value);
+        }
+      } else if (current.data < value) {
+        prev = current;
+        current = current.right;
+        if (!current) {
+          prev.right = new Node(value);
+        }
+      }
+    }
+  }
 }
