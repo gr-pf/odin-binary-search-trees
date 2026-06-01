@@ -31,4 +31,19 @@ export class Tree {
 
     return root;
   }
+
+  includes(value: number) {
+    let current = this.root;
+
+    while (current) {
+      if (current.data === value) {
+        return true;
+      } else if (current.data > value) {
+        current = current.left;
+      } else if (current.data < value) {
+        current = current.right;
+      }
+    }
+    return false;
+  }
 }
