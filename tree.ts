@@ -1,10 +1,20 @@
 import { Node } from "./node";
 
 export class Tree {
+  static prettyPrint(node: Node | null, prefix = "", isLeft = true) {
+    if (node === null || node === undefined) {
+      return;
+    }
+
+    this.prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+    console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+    this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+  }
+
   root: Node | null;
 
   constructor(arr: number[]) {
-    const sortedArr = Array.from(new Set(arr)).toSorted();
+    const sortedArr = Array.from(new Set(arr)).toSorted((a, b) => a - b);
     this.root = this.#buildTree(sortedArr, 0, sortedArr.length - 1);
   }
 
@@ -20,15 +30,5 @@ export class Tree {
     root.right = this.#buildTree(arr, middle + 1, end);
 
     return root;
-  }
-
-  prettyPrint(node: Node | null, prefix = "", isLeft = true) {
-    if (node === null || node === undefined) {
-      return;
-    }
-
-    this.prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
-    console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-    this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
   }
 }
